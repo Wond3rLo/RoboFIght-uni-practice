@@ -119,7 +119,7 @@ public class RobotController : MonoBehaviour
         }
     }
 
-    public void UpdateUI() //åñëè ñëàéäåðû ñóùåñòâóþò, ìû çàäà¸ì èì çíà÷åíèÿ 
+    public void UpdateUI()  
     {
         if (hpSlider != null)
             hpSlider.value = stats.curHp;
@@ -152,10 +152,10 @@ public class RobotController : MonoBehaviour
             return 2;
         if (m == Moves.RestoreEnergy)
             return 0;
-        return 0; //÷òîáû 100% áûëî âîçâðàùàåìîå çíà÷åíèå
+        return 0; 
     }
 
-    private bool CheckCondition(int index, Moves oppMove) //îáðàáîò÷èê äåéñòâèé èëè ñîñòîÿíèÿ ïðîòèâíèêà
+    private bool CheckCondition(int index, Moves oppMove) 
     {
         ConditionsReact cnd = (ConditionsReact)index;
         switch (cnd)
@@ -187,7 +187,7 @@ public class RobotController : MonoBehaviour
         else
             selected = (Moves)a3;
 
-        //Ïðîâåðêà, õâàòàåò ëè ýíåðãèè íà äåéñòâèå
+
         
         if(stats.curEnergy < getMoveCost(selected))
         {
@@ -298,7 +298,7 @@ public class RobotController : MonoBehaviour
 
 
 
-    public PanelsController panels; //ññûëêà íà ìîé ñêðèïò äëÿ ïåðåêëþ÷åíèÿ ýêðàíîâ
+    public PanelsController panels; 
 
     public void SaveAndFight()
     {

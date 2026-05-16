@@ -4,44 +4,6 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 
-//_______________________________________________________________
-//              НАЗНАЧЕНИЕ МЕТОДОВ:
-//
-// FirstEnemyAI - логика действий первого противника
-//  UpdateUI - обновляет шкалу хп и энергии
-//             у пользовательского интерфейса
-//  getMoveCost - при вызове определяет стоимость
-//                выбранного в аргументе действия
-//  CheckCondition - исходя из условия, смотрит,
-//                   соблюдается ли оно и возвращает
-//                   истину/ложь
-//  DetermineMove - сперва проверяет на условие через
-//                  CheckCondition и выбирает подходящее
-//                  действие, после чего сверяет текущую
-//                  энергию с необходимой для действия
-//                  черем метод getMoveCost.
-//                  Хватает - отнимает энергию,
-//                  а иначе RestoreEnergy
-//  Results - В зависимости от выбранных действий и текущих
-//            ролей, решает исход действий роботов
-//  OpenHangar - сбрасывает статы роботов и вызывает метод
-//               из класса PanelsControl с таким же именем
-//  CheckKo - После каждого раунда боя проверяет здоровье и
-//            если оно <= 0, то возвращает экран
-//            ангара, и останавливает корутины
-//  ExecuteRound - срабатывает каждый раунд и вызывает метод
-//                 DetermineMove для каждого робота, затем
-//                 метод Results и обновляет интерфейс каждого
-//                 робота через UpdateUI. Напоследок проверяет
-//                 состояние боя вызовом метода CheckKO
-//  BattleRoutine - по очереди запускает ExecuteRound, меняя
-//                  порядок хода роботов каждый раз до тех пор,
-//                  пока переменная BattleOver != true
-//  SaveAndFight - задаёт значение false для переменной
-//                 BattleOver, сбрасывает статы роботов,
-//                 обновляет интерфейс, меняет экран на
-//                 поле боя и вызывает метод BattleRoutine
-//_______________________________________________________________
 
 [System.Serializable]
 public class RobotStats
@@ -108,7 +70,7 @@ public class RobotController : MonoBehaviour
     {
         if (_animator == null)
             return;
-        Debug.Log($"<color=cyan>Аниматор {gameObject.name} получил команду: {move}</color>");
+        Debug.Log($"<color=cyan>ГЂГ­ГЁГ¬Г ГІГ®Г° {gameObject.name} ГЇГ®Г«ГіГ·ГЁГ« ГЄГ®Г¬Г Г­Г¤Гі: {move}</color>");
         switch (move)
         {
             case Moves.MeleeAttack:
@@ -157,7 +119,7 @@ public class RobotController : MonoBehaviour
         }
     }
 
-    public void UpdateUI() //если слайдеры существуют, мы задаём им значения 
+    public void UpdateUI() //ГҐГ±Г«ГЁ Г±Г«Г Г©Г¤ГҐГ°Г» Г±ГіГ№ГҐГ±ГІГўГіГѕГІ, Г¬Г» Г§Г Г¤Г ВёГ¬ ГЁГ¬ Г§Г­Г Г·ГҐГ­ГЁГї 
     {
         if (hpSlider != null)
             hpSlider.value = stats.curHp;
@@ -190,10 +152,10 @@ public class RobotController : MonoBehaviour
             return 2;
         if (m == Moves.RestoreEnergy)
             return 0;
-        return 0; //чтобы 100% было возвращаемое значение
+        return 0; //Г·ГІГ®ГЎГ» 100% ГЎГ»Г«Г® ГўГ®Г§ГўГ°Г Г№Г ГҐГ¬Г®ГҐ Г§Г­Г Г·ГҐГ­ГЁГҐ
     }
 
-    private bool CheckCondition(int index, Moves oppMove) //обработчик действий или состояния противника
+    private bool CheckCondition(int index, Moves oppMove) //Г®ГЎГ°Г ГЎГ®ГІГ·ГЁГЄ Г¤ГҐГ©Г±ГІГўГЁГ© ГЁГ«ГЁ Г±Г®Г±ГІГ®ГїГ­ГЁГї ГЇГ°Г®ГІГЁГўГ­ГЁГЄГ 
     {
         ConditionsReact cnd = (ConditionsReact)index;
         switch (cnd)
@@ -225,7 +187,7 @@ public class RobotController : MonoBehaviour
         else
             selected = (Moves)a3;
 
-        //Проверка, хватает ли энергии на действие
+        //ГЏГ°Г®ГўГҐГ°ГЄГ , ГµГўГ ГІГ ГҐГІ Г«ГЁ ГЅГ­ГҐГ°ГЈГЁГЁ Г­Г  Г¤ГҐГ©Г±ГІГўГЁГҐ
         
         if(stats.curEnergy < getMoveCost(selected))
         {
@@ -292,7 +254,7 @@ public class RobotController : MonoBehaviour
         {
             BattleOver = true;
             string winner = stats.curHp > 0 ? stats.name : enemy.stats.name;
-            BattleLog.text = $"Битва окончена! Победил {winner}";
+            BattleLog.text = $"ГЃГЁГІГўГ  Г®ГЄГ®Г­Г·ГҐГ­Г ! ГЏГ®ГЎГҐГ¤ГЁГ« {winner}";
             Invoke("OpenHangar", 3f);
             StopAllCoroutines();
         }
@@ -336,7 +298,7 @@ public class RobotController : MonoBehaviour
 
 
 
-    public PanelsController panels; //ссылка на мой скрипт для переключения экранов
+    public PanelsController panels; //Г±Г±Г»Г«ГЄГ  Г­Г  Г¬Г®Г© Г±ГЄГ°ГЁГЇГІ Г¤Г«Гї ГЇГҐГ°ГҐГЄГ«ГѕГ·ГҐГ­ГЁГї ГЅГЄГ°Г Г­Г®Гў
 
     public void SaveAndFight()
     {
